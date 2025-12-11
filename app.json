@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "expotesting",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
@@ -38,12 +38,8 @@
             "backgroundColor": "#000000"
           }
         }
-<<<<<<< HEAD
       ],
       "expo-secure-store"
-=======
-      ]
->>>>>>> master
     ],
     "experiments": {
       "typedRoutes": true,

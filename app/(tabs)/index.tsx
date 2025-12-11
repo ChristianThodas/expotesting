@@ -1,28 +1,21 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Image } from 'expo-image'
+import { Platform, StyleSheet } from 'react-native'
+import { Link, Redirect } from 'expo-router'
+import { useAuth } from '@clerk/clerk-expo'
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-<<<<<<< HEAD
-// 🔥 Clerk imports
-import { useAuth } from "@clerk/clerk-expo";
-import { Redirect } from "expo-router";
+import { HelloWave } from '@/components/hello-wave'
+import ParallaxScrollView from '@/components/parallax-scroll-view'
+import { ThemedText } from '@/components/themed-text'
+import { ThemedView } from '@/components/themed-view'
 
 export default function HomeScreen() {
-  
-  const { isSignedIn } = useAuth();
+  const { isSignedIn } = useAuth()
 
-  // 🚀 If NOT signed in → go to /sign-in
-  if (!isSignedIn) return <Redirect href="/sign-in" />;
+  // 🔒 If NOT signed in → redirect to sign-in
+  if (!isSignedIn) {
+    return <Redirect href="/sign-in" />
+  }
 
-  // If signed in → show your page:
-=======
-export default function HomeScreen() {
->>>>>>> master
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -31,15 +24,13 @@ export default function HomeScreen() {
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
-<<<<<<< HEAD
 
-=======
->>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
@@ -55,10 +46,7 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </ThemedView>
-<<<<<<< HEAD
 
-=======
->>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <Link href="/modal">
           <Link.Trigger>
@@ -87,22 +75,17 @@ export default function HomeScreen() {
           {`Tap the Explore tab to learn more about what's included in this starter app.`}
         </ThemedText>
       </ThemedView>
-<<<<<<< HEAD
 
-=======
->>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
           {`When you're ready, run `}
           <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+          <ThemedText type="defaultSemiBold">app</ThemedText> directory.
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -122,4 +105,4 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
-});
+})
