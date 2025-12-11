@@ -1,44 +1,74 @@
-import { useSignIn } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Alert } from 'react-native'
+import * as WebBrowser from 'expo-web-browser'
+import * as Linking from 'expo-linking'
+import { useOAuth } from '@clerk/clerk-expo'
+import { useRouter } from 'expo-router'
 
-export default function SignInScreen() {
-  const { signIn, setActive, isLoaded } = useSignIn()
+WebBrowser.maybeCompleteAuthSession()
+
+export default function SignIn() {
   const router = useRouter()
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const { startOAuthFlow } = useOAuth({
+    strategy: 'oauth_google',
+  })
 
-  const onSignInPress = async () => {
-    if (!isLoaded) return
-
+  const onGooglePress = async () => {
     try {
-      const result = await signIn.create({
-        identifier: emailAddress,
-        password,
+      console.log('Starting Google OAuth')
+
+      const redirectUrl = Linking.createURL('/')
+
+      console.log('Redirect URL:', redirectUrl)
+
+      const result = await startOAuthFlow({
+        redirectUrl,
       })
 
-      if (result.status === 'complete') {
-        await setActive({ session: result.createdSessionId })
-        router.replace('/')
+      console.log('OAuth result:', result)
+
+      const { createdSessionId, setActive } = result
+
+      if (!createdSessionId) {
+        Alert.alert('OAuth failed', 'No session created')
+        return
       }
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2))
+
+      await setActive!({ session: createdSessionId })
+
+      console.log('Session activated')
+
+      router.replace('/')
+    } catch (err: any) {
+      console.error('Google OAuth error', err)
+      Alert.alert(
+        'Google OAuth ERROR',
+        JSON.stringify(err, null, 2)
+      )
     }
   }
 
   return (
-    <View>
-      <Text>Sign in</Text>
-      <TextInput value={emailAddress} onChangeText={setEmailAddress} />
-      <TextInput secureTextEntry value={password} onChangeText={setPassword} />
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Continue</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <TouchableOpacity
+        onPress={onGooglePress}
+        style={{
+          backgroundColor: '#4285F4',
+          paddingVertical: 14,
+          paddingHorizontal: 24,
+          borderRadius: 6,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 16 }}>
+          Continue with Google
+        </Text>
       </TouchableOpacity>
-      <Link href="/sign-up">
-        <Text>Sign up</Text>
-      </Link>
     </View>
   )
 }
