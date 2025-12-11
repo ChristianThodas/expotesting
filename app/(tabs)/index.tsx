@@ -7,6 +7,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
+<<<<<<< HEAD
 // 🔥 Clerk imports
 import { useAuth } from "@clerk/clerk-expo";
 import { Redirect } from "expo-router";
@@ -19,6 +20,9 @@ export default function HomeScreen() {
   if (!isSignedIn) return <Redirect href="/sign-in" />;
 
   // If signed in → show your page:
+=======
+export default function HomeScreen() {
+>>>>>>> master
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -32,7 +36,10 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
@@ -48,7 +55,10 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </ThemedView>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <Link href="/modal">
           <Link.Trigger>
@@ -77,7 +87,10 @@ export default function HomeScreen() {
           {`Tap the Explore tab to learn more about what's included in this starter app.`}
         </ThemedText>
       </ThemedView>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
